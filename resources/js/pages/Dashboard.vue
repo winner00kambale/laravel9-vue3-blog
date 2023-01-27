@@ -1,8 +1,8 @@
 <template>
     <div id="backend-view">
-        <div class="logout"><a href="#">Log Out</a></div>
+        <div class="logout"><a href="#" @click="logout">Log Out</a></div>
             <h1 class="heading">Dashboard</h1>
-            <span>Hello ! Winner</span>
+            <span>Hello ! {{ name }}</span>
             <div class="links">
                 <ul>
                     <li><a href="">Create-Post</a></li>
@@ -16,6 +16,23 @@
 </template>
 <script>
 export default {
+    data(){
+        return{
+            name:''
+        }
+    },
+    mounted(){
+        axios.get('/api/user').then((response)=> this.name = response.data.name)
+        .catch((Error)=> console.log(Error));
+    },
+    methods:{
+        logout(){
+        axios
+        .post("/api/logout")
+        .then((response)=> (this.$router.push({name:'Home'})))
+        .catch((Error)=> console.log(Error));
+        }
+    }
 
 }
 </script>

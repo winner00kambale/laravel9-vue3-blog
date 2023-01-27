@@ -4,12 +4,17 @@
             <h3>Sign Up Here</h3>
             <label for="name">Name</label>
             <input type="text" id="name" v-model="fields.name">
+            <span v-if="errors.name" class="error">{{ errors.name[0] }}</span>
 
             <label for="email">Email</label>
             <input type="text" id="email" v-model="fields.email">
+            <span v-if="errors.email" class="error">{{ errors.email[0] }}</span>
+
 
             <label for="password">Password</label>
             <input type="password" id="password" v-model="fields.password">
+            <span v-if="errors.password" class="error">{{ errors.password[0] }}</span>
+
 
             <label for="password_confirmation">Confirm_password</label>
             <input type="password" id="password_confirmation" v-model="fields.password_confirmation">
@@ -25,7 +30,8 @@
 export default{
     data(){
         return{
-            fields:{}
+            fields:{},
+            errors:{}
         }
     },
     methods:{
@@ -33,7 +39,7 @@ export default{
             axios.post('/api/register', this.fields).then(()=>{
                 this.$router.push({name:'Dashboard'})
             }).catch((error)=>{
-                console.log(error);
+                this.errors = error.response.data.errors
             });
 
         },

@@ -25,7 +25,7 @@
             <a href=""><i class="fab fa-twitter"></i></a>
           </div>
 
-          <small>&copy; 2021 Alphayo Blog</small>
+          <small>&copy; 2021 Winner Blog</small>
         </footer>
       </div>
       <!-- Menu Button -->
