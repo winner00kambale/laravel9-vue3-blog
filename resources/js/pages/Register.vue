@@ -1,18 +1,18 @@
 <template>
     <div id="backend-view">
-        <form action="">
+        <form @submit.prevent="submit">
             <h3>Sign Up Here</h3>
             <label for="name">Name</label>
-            <input type="text" id="name">
+            <input type="text" id="name" v-model="fields.name">
 
             <label for="email">Email</label>
-            <input type="text" id="email">
+            <input type="text" id="email" v-model="fields.email">
 
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <input type="password" id="password" v-model="fields.password">
 
-            <label for="confirm_password">Confirm_password</label>
-            <input type="password" id="confirm_password">
+            <label for="password_confirmation">Confirm_password</label>
+            <input type="password" id="password_confirmation" v-model="fields.password_confirmation">
 
             <button type="submit">Sign Up</button>
             <span>Have an account? <a href="">Log In</a></span>
@@ -22,7 +22,23 @@
 
 </template>
 <script>
-export default{};
+export default{
+    data(){
+        return{
+            fields:{}
+        }
+    },
+    methods:{
+        submit(){
+            axios.post('/api/register', this.fields).then(()=>{
+                this.$router.push({name:'Dashboard'})
+            }).catch((error)=>{
+                console.log(error);
+            });
+
+        },
+    }
+};
 </script>
 <style scoped>
 #backend-view{
