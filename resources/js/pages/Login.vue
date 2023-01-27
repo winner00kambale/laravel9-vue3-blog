@@ -1,23 +1,43 @@
 <template>
     <div id="backend-view">
-        <form>
+        <form @submit.prevent="submit">
             <h3>Login Here</h3>
             <label for="email">Email</label>
-            <input type="text" id="email">
+            <input type="text" id="email" v-model="fields.email">
+            <span v-if="errors.email" class="error">{{ errors.email[0] }}</span>
 
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <input type="password" id="password" v-model="fields.password">
+            <span v-if="errors.password" class="error">{{ errors.password[0] }}</span>
 
             <button type="submit">Log In</button>
             <span>Don't have an account> <a href="">Sign In</a></span>
 
         </form>
-
     </div>
 
 </template>
 <script>
-export default{};
+export default{
+    data(){
+        return{
+            fields:{},
+            errors:{}
+        }
+    },
+    methods:{
+        submit(){
+            axios.post('/api/login', this.fields).then(()=>{
+                this.$router.push({name:'Dashboard'});
+                localStorage.setItem('authenticated', 'true')
+                this.$emit('updateSidebar')
+            }).catch((error)=>{
+                this.errors = error.response.data.errors
+            });
+
+        },
+    }
+};
 </script>
 <style scoped>
 #backend-view{
@@ -57,11 +77,12 @@ input{
 button{
     margin-top: 50px;
     width: 100%;
-    background-color: rgba(0, 46, 173, 0.7);
+    background-color: rgba(0, 46,173,0.7);
     color: #ffffff;
+    padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
 }
 form span{

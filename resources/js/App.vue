@@ -11,9 +11,9 @@
             <li><RouterLink @click="hideOverlay" :to="{name: 'Blog'}">Blog</RouterLink> </li>
             <li><RouterLink @click="hideOverlay" :to="{name: 'About'}">About</RouterLink> </li>
             <li><RouterLink @click="hideOverlay" :to="{name: 'Contact'}">Contact</RouterLink> </li>
-            <li><RouterLink @click="hideOverlay" :to="{name: 'Register'}">Register</RouterLink> </li>
-            <li><RouterLink @click="hideOverlay" :to="{name: 'Login'}">Login</RouterLink> </li>
-            <li><RouterLink @click="hideOverlay" :to="{name: 'Dashboard'}">Dashboard</RouterLink> </li>
+            <li v-if="!loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Register'}">Register</RouterLink> </li>
+            <li v-if="!loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Login'}">Login</RouterLink> </li>
+            <li v-if="loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Dashboard'}">Dashboard</RouterLink> </li>
         </ul>
         </div>
 
@@ -37,19 +37,19 @@
       <!-- main -->
       <main class="container">
         <!-- render components depending on the page visited -->
-        <router-view></router-view>
+        <router-view @update-sidebar="updateSidebar"></router-view>
 
       </main>
 
       <!-- Main footer -->
-      <footer class="main-footer">
+      <!-- <footer class="main-footer">
         <div>
           <a href=""><i class="fab fa-facebook-f"></i></a>
           <a href=""><i class="fab fa-instagram"></i></a>
           <a href=""><i class="fab fa-twitter"></i></a>
         </div>
         <small>&copy; 2023 Winner Blog</small>
-      </footer>
+      </footer> -->
     </div>
 
 </template>
@@ -58,7 +58,8 @@ export default {
     data(){
         return {
             overlayVisibility:false,
-        }
+            loggedIn: false,
+        };
     },
     methods:{
         ShowOverlay(){
@@ -66,6 +67,16 @@ export default {
         },
         hideOverlay(){
             this.overlayVisibility = false
+        },
+        updateSidebar(){
+            this.loggedIn = !this.loggedIn;
+        }
+    },
+    mounted(){
+        if(localStorage.getItem('authenticated')){
+            this.loggedIn = true
+        }else{
+            this.loggedIn = false
         }
     }
 }
