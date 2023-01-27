@@ -6,6 +6,7 @@ import Blog from '../pages/Blog.vue';
 import Contact from '../pages/Contact.vue';
 import SingleBlog from '../pages/SingleBlog.vue';
 import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
 
 const routes = [
     {
@@ -39,6 +40,11 @@ const routes = [
         path: "/login",
         name: "Login",
         component: Login,
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: Register,
     },
 ];
 

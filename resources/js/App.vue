@@ -12,6 +12,7 @@
             <li><RouterLink @click="hideOverlay" :to="{name: 'About'}">About</RouterLink> </li>
             <li><RouterLink @click="hideOverlay" :to="{name: 'Contact'}">Contact</RouterLink> </li>
             <li><RouterLink @click="hideOverlay" :to="{name: 'Login'}">Login</RouterLink> </li>
+            <li><RouterLink @click="hideOverlay" :to="{name: 'Register'}">Register</RouterLink> </li>
 
           </ul>
         </div>

@@ -1,16 +1,21 @@
 <template>
     <div id="backend-view">
-        <form>
-            <h3>Login Here</h3>
+        <form action="">
+            <h3>Sign Up Here</h3>
+            <label for="name">Name</label>
+            <input type="text" id="name">
+
             <label for="email">Email</label>
             <input type="text" id="email">
 
             <label for="password">Password</label>
             <input type="password" id="password">
 
-            <button type="submit">Log In</button>
-            <span>Don't have an account> <a href="">Sign In</a></span>
+            <label for="confirm_password">Confirm_password</label>
+            <input type="password" id="confirm_password">
 
+            <button type="submit">Sign Up</button>
+            <span>Have an account? <a href="">Log In</a></span>
         </form>
 
     </div>
@@ -31,7 +36,7 @@ form{
     background-color: #ffffff;
     margin: 0 auto;
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255,0.1);
     padding: 50px 35px;
 }
 form * {
@@ -57,19 +62,23 @@ input{
 button{
     margin-top: 50px;
     width: 100%;
-    background-color: rgba(0, 46, 173, 0.7);
+    background-color: rgba(0, 46,173,0.7);
     color: #ffffff;
+    padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
 }
 form span{
     display: block;
-    margin-top: 35px;
+    margin-top: 20px;
 }
 a{
-    color: rgba(0, 46,173, 0.8);
+    color: rgba(0, 46,173,0.8);
 }
-
+.loader{
+    text-align: center;
+    margin-bottom: 15px;
+}
 </style>
