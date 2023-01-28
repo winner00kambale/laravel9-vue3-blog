@@ -26,7 +26,7 @@ class PostController extends Controller
         $slug = Str::slug($title, '-') . '-' . $postId;
         $user_id = auth()->user()->id;
         $body = $request->input('body');
-        $imagePath = 'storage' . $request->file('file')->store('postsImages', 'public');
+        $imagePath = 'storage/' . $request->file('file')->store('postsImages', 'public');
 
         // create and save
 
@@ -40,4 +40,5 @@ class PostController extends Controller
         $post->save();
 
     }
+
 }
