@@ -23,13 +23,23 @@ export default {
     },
     mounted(){
         axios.get('/api/user').then((response)=> this.name = response.data.name)
-        .catch((Error)=> console.log(Error));
+        .catch((Error)=> {
+            if(Error.response.status === 401){
+                this.$emit("updateSidebar");
+                localStorage.removeItem("authenticated");
+                this.$rooter.push({name: "Login"});
+            }
+        });
     },
     methods:{
         logout(){
         axios
         .post("/api/logout")
-        .then((response)=> (this.$router.push({name:'Home'})))
+        .then((response)=> {
+            this.$router.push({name:'Home'});
+            localStorage.removeItem("authenticated");
+            this.$emit("updateSidebar");
+        })
         .catch((Error)=> console.log(Error));
         }
     }
