@@ -45,5 +45,7 @@ Route::get('categories', [CategoryController::class, 'index']);
 // posts
 
 Route::get('home.posts', [HomeController::class, 'index']);
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
+
 
 
