@@ -2,11 +2,16 @@
     <div id="create-categories">
         <div id="contact-us">
             <h1>Create new Category</h1>
+            <!-- succes message -->
+            <div class="success-msg" v-if="success">
+                <i class="fa fa-check"></i>
+                Category created succefully
+            </div>
             <div class="contact-form">
                 <form @submit.prevent="submit">
                     <label for="name"><span>Name</span></label>
                     <input type="text" id="name" name="name" v-model="field.name">
-                    <span v-if="errors.name" class="error">{{ errors.name }}</span>
+                    <span v-if="errors.name" class="error">{{ errors.name[0] }}</span>
                     <input type="submit" value="Submit">
                 </form>
             </div>
@@ -23,6 +28,7 @@ export default {
         return{
             field:{},
             errors:{},
+            success:false
         };
     },
     methods:{
@@ -32,6 +38,11 @@ export default {
             .then(() =>{
                 this.field = {};
                 this.errors = {};
+                this.success = true;
+
+                setInterval(() =>{
+                 this.success = false
+                }, 2500);
             })
             .catch((error) => {
                 this.errors = error.response.data.errors;
