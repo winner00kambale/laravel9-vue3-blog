@@ -1,13 +1,18 @@
 <template>
     <div class="categories-list">
         <h1>Categories List</h1>
+         <!-- succes message -->
+         <div class="success-msg" v-if="success">
+                <i class="fa fa-check"></i>
+                Category deleted succefully
+            </div>
         <div class="item" v-for="(category, index) in categories" :key="category.id">
             <span>{{ index+1 }}</span>
             <p>{{ category.name }}</p>
             <div>
                 <router-link :to="{name: 'EditCategories', params:{id:category.id}}">Edit</router-link>
             </div>
-            <input type="submit" value="Delete">
+            <input type="button" value="Delete" @click="destroy(category.id)">
         </div>
 
 
@@ -22,14 +27,33 @@ export default {
     data(){
         return{
             categories: [],
+            success: false,
         }
     },
-    mounted(){
+    methods:{
+        destroy(id){
+        axios.delete('/api/categories/' + id)
+        .then((response)=> {
+            this.success = true
+            setInterval(() =>{
+                 this.success = false
+                }, 2500);
+        this.fetchCategories();
+        })
+        .catch((error)=> {
+            console.log(error);
+        });
+        },
+        fetchCategories(){
         axios.get('/api/categories')
         .then((response)=> this.categories = response.data)
         .catch((error)=> {
             console.log(error);
         });
+        }
+    },
+    mounted(){
+        this.fetchCategories();
     },
 }
 </script>
