@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionControlle
 
 // categoies
 Route::middleware('auth:sanctum')->post('categories/create', [CategoryController::class, 'store']);
+Route::middleware('auth:sanctum')->get('categories/{category}', [CategoryController::class, 'show']);
+Route::middleware('auth:sanctum')->put('categories/{category}', [CategoryController::class, 'update']);
+
 
 //////////////////////// PUBLIC ROUTES ////////////////////
 Route::post('register', [RegisteredUserController::class, 'store']);
