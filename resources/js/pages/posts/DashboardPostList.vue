@@ -1,62 +1,47 @@
 <template>
     <div class="categories-list">
-        <h1>Categories List</h1>
+        <h1>Posts List</h1>
          <!-- succes message -->
-         <div class="success-msg" v-if="success">
-                <i class="fa fa-check"></i>
-                Category deleted succefully
-            </div>
-        <div class="item" v-for="(category, index) in categories" :key="category.id">
-            <span>{{ index+1 }}</span>
-            <p>{{ category.name }}</p>
+         <div class="success-msg" v-if="succes">
+            <i class="fa fa-check"></i>
+            Post Deleted succefully
+        </div>
+        <div class="item" v-for="(post, index) in posts" :key="post.id">
+            <span>{{ index+1 }}.</span>
+            <p>{{ post.title }}</p>
             <div>
-                <router-link class="edit-link" :to="{name: 'EditCategories', params:{id:category.id}}">Edit</router-link>
+                <a href="" class="edit-link">Edit</a>
             </div>
-            <input type="button" value="Delete" @click="destroy(category.id)" class="delete-btn">
+            <input type="submit" value="Delete" class="delete-btn">
         </div>
-
-
+        <div class="index-categories">
+            <router-link :to="{name: 'CreatePosts'}"></router-link>
+        </div>
         <div class="index-categorie">
-            <router-link :to="{name: 'CreateCategories'}">Create Categories<span>&#8594;</span></router-link>
-
+            <router-link :to="{name: 'CreatePosts'}">Create Post<span>&#8594;</span></router-link>
         </div>
+
     </div>
 </template>
 <script>
 export default {
+    emits: ["updateSidebar"],
     data(){
         return{
-            categories: [],
+            posts: [],
             success: false,
         }
     },
-    methods:{
-        destroy(id){
-        axios.delete('/api/categories/' + id)
-        .then((response)=> {
-            this.success = true
-            setInterval(() =>{
-                 this.success = false
-                }, 2500);
-        this.fetchCategories();
-        })
-        .catch((error)=> {
-            console.log(error);
-        });
-        },
-        fetchCategories(){
-        axios.get('/api/categories')
-        .then((response)=> this.categories = response.data)
-        .catch((error)=> {
-            console.log(error);
-        });
-        }
-    },
     mounted(){
-        this.fetchCategories();
-    },
+        axios.get('/api/dashboard-posts')
+        .then((response)=> this.posts = response.data.data)
+        .catch((error)=> {
+            console.log(error);
+        });
+    }
 }
 </script>
+
 <style scoped>
 .categories-list{
     min-height: 100vh;
@@ -113,3 +98,4 @@ margin: 15px 8px;
     text-align: center;
 }
 </style>
+

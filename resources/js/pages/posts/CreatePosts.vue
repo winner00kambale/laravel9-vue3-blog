@@ -36,6 +36,9 @@
                     <input class="add-post-btn" type="submit" value="Submit">
             </form>
             </div>
+            <div class="create-categories">
+                <router-link :to="{name: 'DashboardPostsList'}">Posts List <span>&#8594;</span></router-link>
+            </div>
         </div>
     </main>
 </template>
