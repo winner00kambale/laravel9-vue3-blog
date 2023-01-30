@@ -12,4 +12,9 @@ class Post extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    use HasFactory;
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

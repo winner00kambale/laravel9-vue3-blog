@@ -36,8 +36,9 @@
       </div>
       <!-- main -->
       <main class="container">
+
         <!-- render components depending on the page visited -->
-        <router-view @update-sidebar="updateSidebar"></router-view>
+        <router-view @update-sidebar="updateSidebar" :key="$route.path"></router-view>
 
       </main>
 

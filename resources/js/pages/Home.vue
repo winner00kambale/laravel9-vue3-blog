@@ -17,14 +17,9 @@
               <span style="float: right">Written By {{ post.user }}</span>
             </p>
             <h4 style="font-weight: bolder">
-              <!-- <a href="single-blog.html"
-                ></a
-              > -->
               <router-link :to="{name: 'SingleBlog', params: { slug: post.slug}, }">{{ post.title }}</router-link>
             </h4>
           </div>
-
-
         </section>
 </template>
 <script>
