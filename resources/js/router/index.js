@@ -13,6 +13,8 @@ import CategoriesList from '../pages/categories/CategoriesList.vue'
 import EditCategories from '../pages/categories/EditCategories.vue'
 import CreatePosts from '../pages/posts/CreatePosts.vue'
 import DashboardPostsList from '../pages/posts/DashboardpostList.vue'
+import EditPost from '../pages/posts/EditPost.vue'
+
 
 
 
@@ -93,7 +95,14 @@ const routes = [
         name: "DashboardPostsList",
         component: DashboardPostsList,
         meta:{requiresAuth:true}
-    }
+    },
+    {
+        path: "/posts/:slug/edit",
+        name: "EditPost",
+        component: EditPost,
+        meta:{requiresAuth:true},
+        props: true,
+    },
 
 ];
 

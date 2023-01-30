@@ -38,7 +38,11 @@
       <main class="container">
 
         <!-- render components depending on the page visited -->
-        <router-view @update-sidebar="updateSidebar" :key="$route.path"></router-view>
+        <router-view
+        @update-sidebar="updateSidebar"
+        @show-edit-succes="showEditSucces"
+        :editSuccess="editSuccess"
+        :key="$route.path"></router-view>
 
       </main>
 
@@ -60,6 +64,7 @@ export default {
         return {
             overlayVisibility:false,
             loggedIn: false,
+            editSuccess: false,
         };
     },
     methods:{
@@ -71,6 +76,9 @@ export default {
         },
         updateSidebar(){
             this.loggedIn = !this.loggedIn;
+        },
+        showEditSucces(){
+            this.editSuccess = true;
         }
     },
     mounted(){

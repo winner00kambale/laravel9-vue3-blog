@@ -2,15 +2,19 @@
     <div class="categories-list">
         <h1>Posts List</h1>
          <!-- succes message -->
-         <div class="success-msg" v-if="succes">
+         <!-- <div class="success-msg" v-if="succes">
             <i class="fa fa-check"></i>
             Post Deleted succefully
+        </div> -->
+        <div class="success-msg" v-if="editSuccess">
+            <i class="fa fa-check"></i>
+            Post Edited succefully
         </div>
         <div class="item" v-for="(post, index) in posts" :key="post.id">
             <span>{{ index+1 }}.</span>
             <p>{{ post.title }}</p>
             <div>
-                <a href="" class="edit-link">Edit</a>
+                <router-link class="edit-link" :to="{name: 'EditPost', params:{slug:post.slug}}">Edit</router-link>
             </div>
             <input type="submit" value="Delete" class="delete-btn">
         </div>
@@ -25,6 +29,7 @@
 </template>
 <script>
 export default {
+    props: ['editSuccess'],
     emits: ["updateSidebar"],
     data(){
         return{
