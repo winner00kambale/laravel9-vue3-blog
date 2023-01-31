@@ -1,4 +1,5 @@
 <template>
+    <div>
     <h2 class="header-title">All Blog Posts</h2>
       <div class="searchbar">
         <form action="">
@@ -28,8 +29,31 @@
               <router-link :to="{name: 'SingleBlog', params: { slug: post.slug}, }">{{ post.title }}</router-link>
             </h4>
           </div>
-
         </section>
+
+        <h3 v-if="!posts.length">Sorry, no match was found!</h3>
+
+         <!-- pagination -->
+         <!-- <div class="pagination" id="pagination">
+          <a href="">&laquo;</a>
+          <a class="active" href="">1</a>
+          <a href="">2</a>
+          <a href="">3</a>
+          <a href="">4</a>
+          <a href="">5</a>
+          <a href="">&raquo;</a>
+        </div> -->
+
+        <div class="pagination" id="pagination">
+          <a href="#" v-for="(link, index) in links"
+                :key="index"
+                v-html="link.label"
+                :class="{active: link.active, disable: !link.url}"
+                @click="changePage(link)"
+                ></a>
+
+        </div>
+    </div>
 </template>
 
 <script>
@@ -39,7 +63,8 @@ export default {
         return{
             posts: [],
             categories: [],
-            title:''
+            title:'',
+            links: []
         }
     },
     methods:{
@@ -52,6 +77,22 @@ export default {
             })
             .then((response) => {
                 this.posts = response.data.data;
+                this.links = response.data.meta.links
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+        changePage(link){
+            if(!link.url || link.active){
+               return;
+            }
+            axios
+            .get(link.url)
+            .then((response) => {
+                this.posts = response.data.data;
+                this.links = response.data.meta.links
+
             })
             .catch((error) => {
                 console.log(error);
@@ -69,6 +110,7 @@ export default {
             })
             .then((response) => {
                 this.posts = response.data.data;
+                this.links = response.data.meta.links
             })
             .catch((error) => {
                 console.log(error);
@@ -78,7 +120,10 @@ export default {
 
     mounted(){
         axios.get('/api/posts')
-        .then((response)=> this.posts = response.data.data)
+        .then((response)=> {this.posts = response.data.data;
+        console.log(response.data.meta.links);
+        this.links = response.data.meta.links
+        })
         .catch((error)=> {
             console.log(error);
         });
@@ -91,3 +136,14 @@ export default {
     }
 }
 </script>
+<style scoped>
+h3{
+    font-size: 30px;
+    text-align: center;
+    margin: 50px 0;
+    color: #fff;
+}
+.disable{
+    pointer-events: none;
+}
+</style>
