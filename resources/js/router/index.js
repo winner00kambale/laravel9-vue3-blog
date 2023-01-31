@@ -14,6 +14,7 @@ import EditCategories from '../pages/categories/EditCategories.vue'
 import CreatePosts from '../pages/posts/CreatePosts.vue'
 import DashboardPostsList from '../pages/posts/DashboardpostList.vue'
 import EditPost from '../pages/posts/EditPost.vue'
+import Parametter from '../pages/parametter/Parametter.vue'
 
 
 
@@ -102,6 +103,12 @@ const routes = [
         component: EditPost,
         meta:{requiresAuth:true},
         props: true,
+    },
+    {
+        path: "/about/create",
+        name: "Parametter",
+        component: Parametter,
+        meta:{requiresAuth:true}
     },
 
 ];

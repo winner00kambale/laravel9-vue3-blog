@@ -14,6 +14,8 @@
             <li v-if="!loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Register'}">Register</RouterLink> </li>
             <li v-if="!loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Login'}">Login</RouterLink> </li>
             <li v-if="loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Dashboard'}">Dashboard</RouterLink> </li>
+            <li v-if="loggedIn"><RouterLink @click="hideOverlay" :to="{name: 'Parametter'}">Paramettre</RouterLink> </li>
+
         </ul>
         </div>
 

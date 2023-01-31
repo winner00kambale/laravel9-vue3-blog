@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\HomeController;
@@ -37,6 +38,10 @@ Route::middleware('auth:sanctum')->delete('categories/{category}', [CategoryCont
 Route::middleware('auth:sanctum')->post('posts', [PostController::class, 'store']);
 Route::middleware('auth:sanctum')->put('posts/{post:slug}', [PostController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('posts/{post:slug}', [PostController::class, 'destroy']);
+
+// about
+Route::middleware('auth:sanctum')->post('about', [AboutController::class, 'store']);
+
 
 
 //////////////////////// PUBLIC ROUTES ////////////////////
