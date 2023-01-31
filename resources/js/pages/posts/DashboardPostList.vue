@@ -2,10 +2,10 @@
     <div class="categories-list">
         <h1>Posts List</h1>
          <!-- succes message -->
-         <!-- <div class="success-msg" v-if="succes">
+         <div class="success-msg" v-if="success">
             <i class="fa fa-check"></i>
             Post Deleted succefully
-        </div> -->
+        </div>
         <div class="success-msg" v-if="editSuccess">
             <i class="fa fa-check"></i>
             Post Edited succefully
@@ -16,7 +16,7 @@
             <div>
                 <router-link class="edit-link" :to="{name: 'EditPost', params:{slug:post.slug}}">Edit</router-link>
             </div>
-            <input type="submit" value="Delete" class="delete-btn">
+            <input type="button" value="Delete" class="delete-btn" @click="destroy(post.slug)">
         </div>
         <div class="index-categories">
             <router-link :to="{name: 'CreatePosts'}"></router-link>
@@ -37,12 +37,31 @@ export default {
             success: false,
         }
     },
-    mounted(){
-        axios.get('/api/dashboard-posts')
+    methods:{
+        destroy(slug){
+            axios
+            .delete(`/api/posts/${slug}`)
+            .then(() =>{
+                this.fetchPosts();
+                this.success = true;
+                setTimeout(() =>{
+                    this.success =false;
+                },2500);
+            })
+            .catch((error) =>{
+                console.log(error.response.data);
+            });
+        },
+        fetchPosts(){
+            axios.get('/api/dashboard-posts')
         .then((response)=> this.posts = response.data.data)
         .catch((error)=> {
             console.log(error);
         });
+        }
+    },
+    mounted(){
+        this.fetchPosts();
     }
 }
 </script>

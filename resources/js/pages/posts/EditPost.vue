@@ -81,8 +81,10 @@ export default {
             })
             .catch((error)=>{
                 this.errors = error.response.data.errors;
+                if(error.response.status === 403){
+                this.$router.push({name: "DashboardPostsList"});
+            }
             })
-
         }
     },
     mounted(){
@@ -96,7 +98,9 @@ export default {
             this.url = "/" + response.data.data.imagePath;
         })
         .catch((error)=> {
-            console.log(error);
+            if(error.response.status === 403){
+                this.$router.push({name: "DashboardPostsList"});
+            }
         });
     }
 }

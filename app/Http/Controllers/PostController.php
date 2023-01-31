@@ -47,9 +47,17 @@ class PostController extends Controller
 
     }
     public function show(Post $post){
+        // protection
+        if(auth()->user()->id !== $post->user->id){
+            return abort(403);
+        }
         return new PostResource($post);
     }
     public function update(Request $request, Post $post){
+        // protection
+        if(auth()->user()->id !== $post->user->id){
+            return abort(403);
+        }
         $request->validate([
             'title' => 'required',
             'file' => 'nullable | image',
@@ -75,8 +83,13 @@ class PostController extends Controller
         $post->slug = $slug;
         $post->body = $body;
         return $post->save();
-
-
+    }
+    public function destroy(Post $post){
+        // protection
+        if(auth()->user()->id !== $post->user->id){
+            return abort(403);
+        }
+        return $post->delete();
     }
 
 }
